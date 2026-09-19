@@ -137,7 +137,20 @@ def draw_label_value(c, label, value, x, y, label_width=70, value_width=185):
         c.line(value_x, y - 2, value_x + value_width, y - 2)
 
 
-def draw_card(c, student, x, y, w, h, placeholders_dir):
+def draw_card(
+    c,
+    student,
+    x,
+    y,
+    w,
+    h,
+    placeholders_dir,
+    school_name,
+    school_subtitle,
+    school_address,
+    exam_name,
+    issue_date,
+):
     # Outer border
     c.setStrokeColor(colors.black)
     c.setLineWidth(1.5)
@@ -163,13 +176,13 @@ def draw_card(c, student, x, y, w, h, placeholders_dir):
     header_center = x + w / 2
     c.setFillColor(colors.black)
 
-    school_size = fit_text(c, SCHOOL_NAME, w - 105, "Helvetica-Bold", 15, 10)
+    school_size = fit_text(c, school_name, w - 105, "Helvetica-Bold", 15, 10)
     c.setFont("Helvetica-Bold", school_size)
-    c.drawCentredString(header_center, inner_top - 9, SCHOOL_NAME)
+    c.drawCentredString(header_center, inner_top - 9, school_name)
 
     c.setFont("Helvetica-Bold", 12)
-    c.drawCentredString(header_center, inner_top - 21, SCHOOL_SUBTITLE)
-    c.drawCentredString(header_center, inner_top - 32, SCHOOL_ADDRESS)
+    c.drawCentredString(header_center, inner_top - 21, school_subtitle)
+    c.drawCentredString(header_center, inner_top - 32, school_address)
 
     # Admit card title box
     title_w = 150
@@ -240,7 +253,7 @@ def draw_card(c, student, x, y, w, h, placeholders_dir):
     c.roundRect(inner_x, exam_y, w - 2 * padding, 50, 3, stroke=1, fill=0)
 
     c.setFont("Helvetica-Bold", 12)
-    c.drawCentredString(header_center, exam_y + 37, EXAM_NAME)
+    c.drawCentredString(header_center, exam_y + 37, exam_name)
 
     c.setLineWidth(0.4)
     c.line(inner_x, exam_y + 29, x + w - padding, exam_y + 29)
@@ -248,12 +261,12 @@ def draw_card(c, student, x, y, w, h, placeholders_dir):
     c.setFont("Helvetica-Bold", 8.5)
     c.drawString(inner_x + 8, exam_y + 19, "Examination:")
     c.setFont("Helvetica", 10)
-    c.drawString(inner_x + 72, exam_y + 19, EXAM_NAME)
+    c.drawString(inner_x + 72, exam_y + 19, exam_name)
 
     c.setFont("Helvetica-Bold", 8.5)
     c.drawString(inner_x + 8, exam_y + 5, "Issue Date:")
     c.setFont("Helvetica", 10)
-    c.drawString(inner_x + 72, exam_y + 5, ISSUE_DATE)
+    c.drawString(inner_x + 72, exam_y + 5, issue_date)
 
     # Note
     note_y = exam_y - 14
@@ -281,7 +294,15 @@ def draw_card(c, student, x, y, w, h, placeholders_dir):
         c.drawCentredString(sx + sig_w / 2, sig_y, label)
 
 
-def generate_pdf(excel_path, output_pdf=None):
+def generate_pdf(
+    excel_path,
+    output_pdf=None,
+    school_name=SCHOOL_NAME,
+    school_subtitle=SCHOOL_SUBTITLE,
+    school_address=SCHOOL_ADDRESS,
+    exam_name=EXAM_NAME,
+    issue_date=ISSUE_DATE,
+):
     excel_path = Path(excel_path)
 
     create_gender_placeholders(excel_path.parent / "assets" if False else Path("assets"))
@@ -317,6 +338,11 @@ def generate_pdf(excel_path, output_pdf=None):
             CARD_W,
             CARD_H,
             placeholders_dir,
+            school_name,
+            school_subtitle,
+            school_address,
+            exam_name,
+            issue_date,
         )
 
         if position == 1 or index == len(students) - 1:
