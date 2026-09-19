@@ -126,7 +126,7 @@ def draw_label_value(c, label, value, x, y, label_width=70, value_width=185):
     c.setFont("Helvetica", 8.5)
     value = value or ""
     max_width = value_width
-    size = fit_text(c, value, max_width, "Helvetica", 10, 6.5)
+    size = fit_text(c, value, max_width, "Helvetica", 12, 6.5)
     c.setFont("Helvetica", size)
     value_x = x + label_width
     c.drawString(value_x, y, value)
@@ -140,7 +140,7 @@ def draw_label_value(c, label, value, x, y, label_width=70, value_width=185):
 def draw_card(c, student, x, y, w, h, placeholders_dir):
     # Outer border
     c.setStrokeColor(colors.black)
-    c.setLineWidth(0.9)
+    c.setLineWidth(1.5)
     c.rect(x, y, w, h, stroke=1, fill=0)
 
     padding = 10
@@ -203,20 +203,20 @@ def draw_card(c, student, x, y, w, h, placeholders_dir):
     draw_label_value(c, "Name of Student:", student["name"], text_x, row_y,
                      label_width=78, value_width=left_width - 78)
 
-    row_y -= 16
+    row_y -= 20
     draw_label_value(c, "Class:", student["class"], text_x, row_y,
                      label_width=78, value_width=left_width - 78)
 
-    row_y -= 16
+    row_y -= 20
     draw_label_value(c, "Roll No.:", student["roll_no"], text_x, row_y,
                      label_width=78, value_width=left_width - 78)
 
-    row_y -= 16
-    draw_label_value(c, "Mother's Name:", student["mother_name"], text_x, row_y,
+    row_y -= 20
+    draw_label_value(c, "Father's Name:", student["father_name"], text_x, row_y,
                      label_width=78, value_width=left_width - 78)
 
-    row_y -= 16
-    draw_label_value(c, "Father's Name:", student["father_name"], text_x, row_y,
+    row_y -= 20
+    draw_label_value(c, "Mother's Name:", student["mother_name"], text_x, row_y,
                      label_width=78, value_width=left_width - 78)
 
     # Contact on the right side of the information area
@@ -231,7 +231,7 @@ def draw_card(c, student, x, y, w, h, placeholders_dir):
         )
 
     # Divider
-    divider_y = photo_y - 9
+    divider_y = row_y - 10
     c.setLineWidth(0.6)
     c.line(inner_x, divider_y, x + w - padding, divider_y)
 
@@ -246,14 +246,14 @@ def draw_card(c, student, x, y, w, h, placeholders_dir):
     c.line(inner_x, exam_y + 29, x + w - padding, exam_y + 29)
 
     c.setFont("Helvetica-Bold", 8.5)
-    c.drawString(inner_x + 8, exam_y + 17, "Examination:")
+    c.drawString(inner_x + 8, exam_y + 19, "Examination:")
     c.setFont("Helvetica", 10)
-    c.drawString(inner_x + 72, exam_y + 17, EXAM_NAME)
+    c.drawString(inner_x + 72, exam_y + 19, EXAM_NAME)
 
     c.setFont("Helvetica-Bold", 8.5)
-    c.drawString(inner_x + 8, exam_y + 4, "Issue Date:")
+    c.drawString(inner_x + 8, exam_y + 5, "Issue Date:")
     c.setFont("Helvetica", 10)
-    c.drawString(inner_x + 72, exam_y + 4, ISSUE_DATE)
+    c.drawString(inner_x + 72, exam_y + 5, ISSUE_DATE)
 
     # Note
     note_y = exam_y - 14
